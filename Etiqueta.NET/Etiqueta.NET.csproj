@@ -31,8 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BarcodeLib">
-      <HintPath>..\packages\BarcodeLib.1.0.0.20\lib\net20\BarcodeLib.dll</HintPath>
+    <Reference Include="BarcodeLib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=5f09bda868cc39e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\BarcodeLib.1.1.0.0\lib\net20\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DataMatrix.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataMatrix.net.0.4.2\lib\20\DataMatrix.net.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp">
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
@@ -50,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CorreiosTag.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,6 +85,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Premium.png" />
+    <None Include="Resources\pac.png" />
+    <None Include="Resources\EtiquetaAutomatizada_6pFolha.jpeg" />
+    <None Include="Resources\EtiquetaAutomatizada_4pFolha.jpeg" />
+    <None Include="Resources\EXPRESSA.png" />
     <Content Include="Resources\ModeloEtiquetaCarta.jpg" />
     <Content Include="Resources\ModeloEtiquetaPAC.jpg" />
     <Content Include="Resources\ModeloEtiquetaSedex.jpg" />

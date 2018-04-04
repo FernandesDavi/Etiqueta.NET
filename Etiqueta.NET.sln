@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etiqueta.NET", "Etiqueta.NET\Etiqueta.NET.csproj", "{55B3E382-54B8-46EE-BF23-2A64989FB902}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etiqueta.NET.Test", "Etiqueta.NET.Test\Etiqueta.NET.Test.csproj", "{52D6E297-2C6C-4C10-A62D-000E968C92B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etiqueta.NET.Debug", "Etiqueta.NET.Debug\Etiqueta.NET.Debug.csproj", "{93B865E1-D7D3-49F4-BED0-0F30C4049D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{52D6E297-2C6C-4C10-A62D-000E968C92B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D6E297-2C6C-4C10-A62D-000E968C92B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D6E297-2C6C-4C10-A62D-000E968C92B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B865E1-D7D3-49F4-BED0-0F30C4049D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B865E1-D7D3-49F4-BED0-0F30C4049D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B865E1-D7D3-49F4-BED0-0F30C4049D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B865E1-D7D3-49F4-BED0-0F30C4049D03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9A4F41E-FB24-4F1D-92D2-F4361C2EABBC}
 	EndGlobalSection
 EndGlobal

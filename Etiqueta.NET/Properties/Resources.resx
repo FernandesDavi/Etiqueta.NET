@@ -127,4 +127,19 @@
   <data name="ModeloEtiquetaCarta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\modeloetiquetacarta.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="EtiquetaAutomatizada_6pFolha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EtiquetaAutomatizada_6pFolha.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EtiquetaAutomatizada_4pFolha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EtiquetaAutomatizada_4pFolha.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EXPRESSA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EXPRESSA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pac" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pac.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Premium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Premium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

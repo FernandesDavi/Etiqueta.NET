@@ -9,6 +9,7 @@ using System.IO;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using BarcodeLib;
+using DataMatrix.net;
 
 namespace Etiqueta.NET.Core
 {
@@ -295,7 +296,7 @@ namespace Etiqueta.NET.Core
 
         #region Private Methods
 
-        private Bitmap GetLabelTemplate(LabelType type)
+        private static Bitmap GetLabelTemplate(LabelType type)
         {
             Bitmap bmp = null;
             switch (type)
@@ -307,7 +308,7 @@ namespace Etiqueta.NET.Core
             return bmp;
         }
 
-        private Image GerarCodBarrasRegistro(String registro)
+        private static Image GerarCodBarrasRegistro(String registro)
         {
             Barcode barcode = new Barcode()
             {
@@ -323,7 +324,7 @@ namespace Etiqueta.NET.Core
             return img;
         }
 
-        private Image GerarCodBarrasCep(String cep)
+        private static Image GerarCodBarrasCep(String cep)
         {
             Barcode barcode = new Barcode()
             {
@@ -341,8 +342,59 @@ namespace Etiqueta.NET.Core
             Image img = barcode.Encode(TYPE.CODE128, cep);
             return img;
         }
+        // novo
+        private static string GerarValidateCep(string cep)
+        {
+            var Validador = 0;
+            var soma = 0;
 
+            cep = cep.Replace("0", string.Empty);
+
+            foreach (var item in cep)
+            {
+                soma += Convert.ToInt32(item);
+            }
+            if (soma % 10 == 0)
+            {
+                Validador = 0;
+            }
+            else
+            {
+                var i = soma;
+                while (i % 10 != 0)
+                {
+                    i++;
+                }
+                Validador = i - soma;
+            }
+            return Validador.ToString();
+        }
+
+        private static Bitmap GenerateDataMatrix(string Code)
+        {
+            var encoder = new DmtxImageEncoder();
+            var options = new DmtxImageEncoderOptions
+            {
+                ModuleSize = 3, //3 =22,8mm; 4 = 30mm
+                MarginSize = 0,
+                BackColor = Color.White,
+                ForeColor = Color.Black,
+                Scheme = DmtxScheme.DmtxSchemeAsciiGS1
+            };
+            return encoder.EncodeImage(Code, options);
+        }
+
+        private static Bitmap GetTemplate(LabelType type)
+        {
+            Bitmap bmp = null;
+            switch (type)
+            {
+                case LabelType.CARTA: bmp = Properties.Resources.ModeloEtiquetaCarta; break;
+                case LabelType.PAC: bmp = Properties.Resources.ModeloEtiquetaPAC; break;
+            }
+            return bmp;
+        }
         #endregion
-             
+
     }
 }
