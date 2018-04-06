@@ -70,7 +70,7 @@ namespace Etiqueta.NET.Core
             var path = fileName;
             bmp.Save(path);
             bmp.Dispose();
-          
+
         }
 
         public static void GenerateSix()
@@ -84,20 +84,20 @@ namespace Etiqueta.NET.Core
                 Peso = 123456,
                 Rastreamento = "PP578197848BR",
 
-                Destinatario = "teste teste teste teste teste teste teste teste te",
-                EnderecoDest = "endreco destinatario ausente destinatario ausentee",
-                NumeroDest = 123456,
-                ComplementoDest = "complemento complemento comple",
-                BairroDest = "bairro do destinatario ausente destinatario ausent",
+                Destinatario = "Teste teste teste teste teste teste teste teste t",
+                EnderecoDest = "Rua Deputado Emilio Carlos",
+                NumeroDest = 117111,
+                ComplementoDest = "dsdasda",
+                BairroDest = "Jd Silveira",
                 CEPDest = "12345-678",
                 CidadeDest = "Vila Bela da Santíssima Trindade",
                 UFDest = "SP",
 
                 Remetente = "teste2 teste2 teste2 teste2 teste2 teste2 teste2 2",
-                EndrerecoRemet = "endereco endereco endereco endereco endereco ender",
+                EndrerecoRemet = "Rua Deputado Emilio Carlos",
                 NumeroRemet = 123456,
-                ComplementoRemet = "complemento complemento comple",
-                BairroRemet = "Bairro Bairro Bairro Bairro Bairro Bairro Bairro B",
+                ComplementoRemet = "cdasdasdasdas",
+                BairroRemet = "Jd Silveira",
                 CEPRemet = "12345-678",
                 CidadeRemet = "Vila Bela da Santíssima Trindade",
                 UFRemet = "SP"
@@ -106,35 +106,50 @@ namespace Etiqueta.NET.Core
 
             var bmp = GetTemplate(CorreiosTag.Tags.Seis);
             var Matrix = GenerateDataMatrix("064340300111706434070001170000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+            tag.CEPDest = tag.CEPDest.Replace("-", string.Empty);
             var icon = GetType(CorreiosTag.TagType.PREMIUM);
             var imgCodigoBarrasZip = GerarCodBarrasCep(tag.CEPDest);
+            var imgCodBarraRastreamento = GerarCodBarrasRegistro(tag.Rastreamento);
             var codRegistroPoint = new RectangleF(338, 10, 59, 59);
-            var dataMatrix = new RectangleF(10, 10, 70, 70);
+            var dataMatrix = new RectangleF(10, 10, 90, 90);
             var contratoXY = new RectangleF(155, 38, 200, 22);
             var servicoXY = new RectangleF(100, 50, 200, 22);
             var nfXY = new RectangleF(250, 8, 200, 22);
             var pedidoXY = new RectangleF(271, 23, 200, 22);
             var pesoXY = new RectangleF(282, 53, 200, 22);
-            var rastreamentoXY = new RectangleF(100, 70, 200, 22);
+            var rastreamentoXY = new RectangleF(100, 87, 200, 22);
             var destinatarioXY = new RectangleF(10, 230, 300, 40);
-            var imgCodbarraXY = new RectangleF(260, 220, 130, 70);
+            var imgCodbarraXY = new RectangleF(250, 220, 140, 60);
 
-
-
+            var endereDestXY = new RectangleF(10, 245, 270, 60);
+            var cepDestXY = new RectangleF(10, 274, 270, 60);
+            var cidadeXY = new RectangleF(75, 274, 270, 60);
+            var RemetenteStatic = new RectangleF(10, 295, 270, 60);
+            var remetenteXY = new RectangleF(75, 295, 270, 60);
+            var enderecoRemetXY = new RectangleF(10, 310, 430, 60);
+            var cepRemeXY = new RectangleF(10, 323, 430, 60);
+            var cidadeRemXY = new RectangleF(70, 323, 430, 100);
+            var codBarraRastreamentoXY = new RectangleF(30, 105, 310, 75);
 
             var g = Graphics.FromImage(bmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            // var format = "{0}\n{1}\n{2}, {3}\n{4}  {5} - {6}";
             g.DrawImage(icon, codRegistroPoint);
             g.DrawImage(Matrix, dataMatrix);
             g.DrawImage(imgCodigoBarrasZip, imgCodbarraXY);
+            g.DrawImage(imgCodBarraRastreamento, codBarraRastreamentoXY);
+            tag.EnderecoDest += ", " + tag.NumeroDest + ", " + tag.ComplementoDest + " " + tag.CidadeDest;
+            tag.CidadeDest += "/" + tag.UFDest;
+            tag.EndrerecoRemet += ", " + tag.NumeroRemet + " - " + tag.ComplementoRemet + " - " + tag.BairroRemet;
+            tag.CidadeRemet += "/" + tag.UFRemet;
             using (var font = new Font("Arial", 9, FontStyle.Bold))
             {
                 g.DrawString(tag.Contrato.ToString(), font, Brushes.Black, contratoXY);
                 g.DrawString(tag.Servico.ToString(), font, Brushes.Black, servicoXY);
                 g.DrawString(tag.Rastreamento.ToString(), font, Brushes.Black, rastreamentoXY);
+                g.DrawString(tag.CEPDest.ToString(), font, Brushes.Black, cepDestXY);
+
             }
 
             using (var font = new Font("Arial", 9, FontStyle.Regular))
@@ -143,9 +158,22 @@ namespace Etiqueta.NET.Core
                 g.DrawString(tag.Pedido.ToString(), font, Brushes.Black, pedidoXY);
                 g.DrawString(tag.Peso.ToString(), font, Brushes.Black, pesoXY);
                 g.DrawString(tag.Destinatario.ToString(), font, Brushes.Black, destinatarioXY);
+                g.DrawString(tag.EnderecoDest.ToString(), font, Brushes.Black, endereDestXY);
+                g.DrawString(tag.CidadeDest.ToString(), font, Brushes.Black, cidadeXY);
 
             }
-            //g.DrawString("dsadaas", new Font("Arial", 12, FontStyle.Bold), Brushes.Black, codRegistroPoint);
+            using (var font = new Font("Arial", 8, FontStyle.Bold))
+            {
+                g.DrawString("Remetente:", font, Brushes.Black, RemetenteStatic);
+                g.DrawString(tag.CEPRemet, font, Brushes.Black, cepRemeXY);
+
+            }
+            using (var font = new Font("Arial", 8, FontStyle.Regular))
+            {
+                g.DrawString(tag.Remetente.ToString(), font, Brushes.Black, remetenteXY);
+                g.DrawString(tag.EndrerecoRemet.ToString(), font, Brushes.Black, enderecoRemetXY);
+                g.DrawString(tag.CidadeRemet.ToString(), font, Brushes.Black, cidadeRemXY);
+            }
             var fileName = "label-" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss-fff") + ".jpg";
             g.Flush();
             var path = fileName;
@@ -189,7 +217,7 @@ namespace Etiqueta.NET.Core
             var encoder = new DmtxImageEncoder();
             var options = new DmtxImageEncoderOptions
             {
-                ModuleSize = 3, //3 =22,8mm; 4 = 30mm
+                ModuleSize = 4, //3 =22,8mm; 4 = 30mm
                 MarginSize = 0,
                 BackColor = Color.White,
                 ForeColor = Color.Black,
@@ -200,7 +228,7 @@ namespace Etiqueta.NET.Core
 
         private static Bitmap GetTemplate(Tags tag)
         {
-        Bitmap bmp = null;
+            Bitmap bmp = null;
             switch (tag)
             {
                 case Tags.Quatro:
@@ -240,17 +268,32 @@ namespace Etiqueta.NET.Core
         {
             using (var barcode = new Barcode
             {
-                Alignment = AlignmentPositions.LEFT,
-                Width = 300,
+                Alignment = AlignmentPositions.CENTER,
+                Width = 250,//largura 
+                Height = 180,//altura
+                RotateFlipType = RotateFlipType.RotateNoneFlipNone,
+                BackColor = Color.White,
+                ForeColor = Color.Black
+            })
+            {
+                var img = barcode.Encode(TYPE.CODE128A, cep);
+                return img;
+            }
+        }
+
+        private static Image GerarCodBarrasRegistro(String registro)
+        {
+            using (var barcode = new Barcode
+            {
+                Alignment = AlignmentPositions.CENTER,
+                Width = 360,
+                Height = 70,
                 RotateFlipType = RotateFlipType.RotateNoneFlipNone,
                 BackColor = Color.White,
                 ForeColor = Color.Black,
-               // LabelPosition = LabelPositions.TOPLEFT,
-               // LabelFont = new Font(FontFamily.GenericSerif, 20, FontStyle.Bold),
-                //IncludeLabel = true
             })
             {
-                var img = barcode.Encode(TYPE.CODE128, cep);
+                var img = barcode.Encode(TYPE.CODE128A, registro);
                 return img;
             }
         }
