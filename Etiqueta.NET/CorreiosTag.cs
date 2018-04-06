@@ -105,7 +105,7 @@ namespace Etiqueta.NET.Core
             };
 
             var bmp = GetTemplate(CorreiosTag.Tags.Seis);
-            var Matrix = GenerateDataMatrix("064340300111706434070001170000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+            var Matrix = GenerateDataMatrix("06434050000008704703500000851PP578197848BR2500000000000067059090046690000117 00000000000000000-00.000000-00.000000|");
             tag.CEPDest = tag.CEPDest.Replace("-", string.Empty);
             var icon = GetType(CorreiosTag.TagType.PREMIUM);
             var imgCodigoBarrasZip = GerarCodBarrasCep(tag.CEPDest);
