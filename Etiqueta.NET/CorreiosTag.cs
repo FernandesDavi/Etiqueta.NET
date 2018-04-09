@@ -73,39 +73,63 @@ namespace Etiqueta.NET.Core
 
         }
 
-        public static void GenerateSix()
+        public static void GenerateSix(Tag tag, TagMatrix datamatrix )
         {
-            var tag = new Tag
-            {
-                Contrato = 1234567890,
-                Servico = "Sedex Hoje Amanha",
-                NF = 1234567,
-                Pedido = "123456789",
-                Peso = 123456,
-                Rastreamento = "PP578197848BR",
+            //var tag = new Tag
+            //{
+            //    Contrato = 1234567890,
+            //    Servico = "Sedex Hoje Amanha",
+            //    NF = 1234567,
+            //    Pedido = "123456789",
+            //    Peso = 123456,
+            //    Rastreamento = "PP578197848BR",
 
-                Destinatario = "Teste teste teste teste teste teste teste teste t",
-                EnderecoDest = "Rua Deputado Emilio Carlos",
-                NumeroDest = 117111,
-                ComplementoDest = "dsdasda",
-                BairroDest = "Jd Silveira",
-                CEPDest = "12345-678",
-                CidadeDest = "Vila Bela da Santíssima Trindade",
-                UFDest = "SP",
+            //    Destinatario = "Teste teste teste teste teste teste teste teste t",
+            //    EnderecoDest = "Rua Deputado Emilio Carlos",
+            //    NumeroDest = 117,
+            //    ComplementoDest = "dsdasda",
+            //    BairroDest = "Jd Silveira",
+            //    CEPDest = "12345-678",
+            //    CidadeDest = "Vila Bela da Santíssima Trindade",
+            //    UFDest = "SP",
 
-                Remetente = "teste2 teste2 teste2 teste2 teste2 teste2 teste2 2",
-                EndrerecoRemet = "Rua Deputado Emilio Carlos",
-                NumeroRemet = 123456,
-                ComplementoRemet = "cdasdasdasdas",
-                BairroRemet = "Jd Silveira",
-                CEPRemet = "12345-678",
-                CidadeRemet = "Vila Bela da Santíssima Trindade",
-                UFRemet = "SP"
+            //    Remetente = "teste2 teste2 teste2 teste2 teste2 teste2 teste2 2",
+            //    EndrerecoRemet = "Rua Deputado Emilio Carlos",
+            //    NumeroRemet = 123456,
+            //    ComplementoRemet = "cdasdasdasdas",
+            //    BairroRemet = "Jd Silveira",
+            //    CEPRemet = "12345-678",
+            //    CidadeRemet = "Vila Bela da Santíssima Trindade",
+            //    UFRemet = "SP"
 
-            };
+            //};
 
+            //var datamatrix = new DataMatrix
+            //{
+            //    CartaoPostagem = "0067059090",
+            //    CepDest = tag.CEPDest.Replace("-", string.Empty),
+            //    CepOrigem = tag.CEPRemet.Replace("-", string.Empty),
+            //    CodigoServico = "04669",
+            //    CompleCepDest = "00000",
+            //    CompleCepOrigem = "00000",
+            //    ValidadorCep = GerarValidateCep(tag.CEPDest),
+            //    Etiqueta = tag.Rastreamento,
+            //    IDV = "51",
+            //    InformAgrupamento = "00",
+            //    Latitude = "-00.000000",
+            //    Longitude = "-00.000000",
+            //    ComplementoLogradouro = "00000000000000000000",
+            //    NumeroLograd = new string('0', 5 - tag.NumeroDest.ToString().Length) + tag.NumeroDest.ToString(),
+            //    ServicAdd = "00000000",
+            //    Telefone = new string('0', 12 - "00000000000".Length) + "00000000000",
+            //    VlDeclarado = "00000000"
+            //};
+
+           
+            var dtMatrixConcat = ConcatString(datamatrix);
+            
             var bmp = GetTemplate(CorreiosTag.Tags.Seis);
-            var Matrix = GenerateDataMatrix("06434050000008704703500000851PP578197848BR2500000000000067059090046690000117 00000000000000000-00.000000-00.000000|");
+            var Matrix = GenerateDataMatrix(dtMatrixConcat);
             tag.CEPDest = tag.CEPDest.Replace("-", string.Empty);
             var icon = GetType(CorreiosTag.TagType.PREMIUM);
             var imgCodigoBarrasZip = GerarCodBarrasCep(tag.CEPDest);
@@ -181,6 +205,8 @@ namespace Etiqueta.NET.Core
             bmp.Dispose();
 
         }
+
+
         #endregion
 
         #region Private Methods
@@ -296,6 +322,33 @@ namespace Etiqueta.NET.Core
                 var img = barcode.Encode(TYPE.CODE128A, registro);
                 return img;
             }
+        }
+
+        private static string ConcatString(TagMatrix datamatrix)
+        {
+
+            var dtMatrix = new StringBuilder();
+
+            dtMatrix.Append(datamatrix.CepDest);
+            dtMatrix.Append(datamatrix.CompleCepDest);
+            dtMatrix.Append(datamatrix.CepOrigem);
+            dtMatrix.Append(GerarValidateCep(datamatrix.CepDest));
+            dtMatrix.Append(datamatrix.ValidadorCep);
+            dtMatrix.Append(datamatrix.IDV);
+            dtMatrix.Append(datamatrix.Etiqueta);
+            dtMatrix.Append(datamatrix.ServicAdd);
+            dtMatrix.Append(datamatrix.CartaoPostagem);
+            dtMatrix.Append(datamatrix.CodigoServico);
+            dtMatrix.Append(datamatrix.InformAgrupamento);
+            dtMatrix.Append(datamatrix.NumeroLograd);
+            dtMatrix.Append(datamatrix.ComplementoLogradouro);
+            dtMatrix.Append(datamatrix.VlDeclarado);
+            dtMatrix.Append(datamatrix.Telefone);
+            dtMatrix.Append(datamatrix.Latitude);
+            dtMatrix.Append(datamatrix.Longitude);
+            dtMatrix.Append("|");
+
+            return dtMatrix.ToString();
         }
         #endregion
     }
